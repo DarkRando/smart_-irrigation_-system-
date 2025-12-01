@@ -1,0 +1,476 @@
+/* =======================================
+   1. GLOBAL BASE STYLES
+   ======================================= */
+
+:root {
+  --primary: #0d6efd;
+  --danger: #ff5555;
+  --text-light: #e6edf3;
+  --text-muted: #9ca3af;
+  --bg-dark: #121212;
+  --bg-card: #1e1e1e;
+  --border-color: #333;
+  --radius-card: 16px;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: system-ui, sans-serif;
+}
+
+/* =======================================
+   2. NAVIGATION BUTTONS
+   ======================================= */
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-btn {
+  width: 180px;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.1);
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.nav-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.3);
+}
+
+/* =======================================
+   3. DASHBOARD CARDS
+   ======================================= */
+
+.dashboard-card {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-light);
+}
+
+.dashboard-card .card-title {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.dashboard-header {
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+/* =======================================
+   4. BUTTONS (GLOBAL)
+   ======================================= */
+
+.btn-primary {
+  background-color: var(--primary);
+  border: none;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--danger);
+  color: #fff;
+}
+
+/* =======================================
+   5. FORMS & MODALS
+   ======================================= */
+
+.form-control {
+  border-radius: 8px;
+  background: #2a2a2a;
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+}
+
+.modal-content {
+  border-radius: 14px;
+  background: var(--bg-card);
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+}
+
+.modal-body .form-control::placeholder {
+  color: var(--text-muted);
+}
+
+/* =======================================
+   6. RESPONSIVE & MOBILE TWEAKS
+   ======================================= */
+
+@media (max-width: 992px) {
+  .row.g-3 {
+    --bs-gutter-x: 0.5rem;
+    --bs-gutter-y: 0.5rem;
+  }
+
+  .dashboard-card .card-title {
+    font-size: 0.95rem;
+  }
+
+  .display-6 {
+    font-size: 1.6rem;
+  }
+
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: 100%;
+  }
+
+  .modal-content {
+    border-radius: 12px;
+  }
+
+  .modal-body .form-control {
+    font-size: 0.98rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-header {
+    font-size: 1rem;
+  }
+
+  .display-6 {
+    font-size: 1.3rem;
+  }
+
+  .dashboard-card .card-title {
+    font-size: 0.9rem;
+  }
+
+  .modal-body .form-control {
+    padding: 0.6rem 0.65rem;
+  }
+}
+
+/* =======================================
+   7. UTILITY & MISC
+   ======================================= */
+
+#zonesContainer .card-title {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-check-input {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+svg circle {
+  stroke: var(--primary);
+}
+
+footer {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
+/* =======================================
+   8. LOG CARDS (Dark Theme)
+   ======================================= */
+
+.log-card {
+  position: relative;
+  padding: 1.25rem 1.5rem;
+  padding-right: 2.25rem; /* space for delete button */
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.log-card:hover {
+  box-shadow: 0 4px 16px rgba(13, 110, 253, 0.25);
+  border-color: var(--primary);
+}
+
+.log-title {
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.log-details {
+  font-size: 1rem;
+  color: var(--text-light);
+  opacity: 0.9;
+}
+
+/* small delete button (top-right of card) */
+.log-delete-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  transition: all 0.25s ease;
+}
+
+.log-delete-btn:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* =======================================
+   9. HOME BUTTON (Reused Styles)
+   ======================================= */
+
+.home-fixed {
+  position: static;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.nav-btn .home-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Small screens: pin the home button to top-left */
+@media (max-width: 720px) {
+  .home-fixed {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1050;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0;
+    background: transparent;
+  }
+
+  .home-fixed .nav-btn {
+    width: 56px;
+    height: 44px;
+    padding: 0.25rem 0.35rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-fixed .nav-btn .home-text {
+    display: none;
+  }
+
+  .home-fixed .nav-btn .home-icon {
+    display: inline-block;
+  }
+}
+/* ===============================
+   Center Home Page Layout
+   =============================== */
+
+body.homepage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d1117 0%, #1b2430 100%);
+  color: #e6edf3;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.center-container nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.center-container .nav-btn {
+  width: 200px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: #161b22;
+  color: #e6edf3;
+  border: 2px solid #0d6efd;
+  transition: all 0.25s ease;
+}
+
+.center-container .nav-btn:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.center-container .dashboard-header {
+  color: #58a6ff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1.75rem;
+}
+
+
+/* =======================================
+   DASHBOARD CARD IMPROVEMENTS
+======================================= */
+
+.irrigation-card {
+  padding: 0.85rem 0.9rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.irrigation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(13, 110, 253, 0.25);
+}
+
+/* top bar layout */
+.card-header-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+/* bring out the card title */
+.irrigation-card .card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.4px;
+  color: var(--primary);
+}
+
+/* better switch alignment */
+.card-header-inline .form-check-input {
+  width: 2em;
+  height: 1.2em;
+}
+
+/* key-value layout */
+.card-meta {
+  margin-top: 0.75rem;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.meta-row .label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.meta-row .value {
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* subtle visual tone */
+.irrigation-card .card-body {
+  background: linear-gradient(155deg, #1f1f1f 0%, #242424 100%);
+  border-radius: var(--radius-card);
+  padding: 1rem;
+}
+/* =================================================
+   PUMP STATUS INDICATOR
+===================================================*/
+.pump-card {
+  padding: 0.8rem !important;
+}
+
+.pump-indicator {
+  display: inline-block;
+  margin: 10px 0 4px;
+  padding: 0.45rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all .25s ease;
+}
+
+/* OFF (default) */
+.pump-off {
+  color: #e85d5d;
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid rgba(255, 0, 0, .35);
+  box-shadow: 0 0 8px rgba(255, 0, 0, .25);
+}
+
+/* ON state */
+.pump-on {
+  color: #33ff88;
+  background: rgba(0,255,150,.08);
+  border: 1px solid rgba(0,255,150,.45);
+  box-shadow: 0 0 8px rgba(0,255,150,.35);
+}
+.zone-delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  outline: none;
+  padding: 0;
+  color: #ffffff;
+  background: #dc3545; /* bootstrap red */
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.zone-delete-btn:hover {
+  background: #b81f2c; 
+}

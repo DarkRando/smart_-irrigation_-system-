@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>History – Irrigation System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+  <main class="container my-4">
+    <h2 class="text-center mb-4 dashboard-header">Pump Activity History</h2>
+
+    <!-- Back Button -->
+    <div class="text-center mb-4 home-fixed">
+      <a href="index.html">
+        <button class="nav-btn">
+          <span class="home-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+              viewBox="0 0 24 24" fill="none" stroke="#0d6efd"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </span>
+          <span class="home-text">Dashboard</span>
+        </button>
+      </a>
+    </div>
+
+    <!-- Logs -->
+    <div id="logsContainer" class="mb-5"></div>
+  </main>
+
+  <!-- View Details Modal -->
+  <div class="modal fade" id="viewLogModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Log Details</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="viewLogBody"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
+
+// ==================================
+// 🚀 Firebase Config
+// ==================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCuumVzK4ppOldG-jVcW936QpLTNgXbzfY",
+  authDomain: "smart-irrigation-5fc1d.firebaseapp.com",
+  databaseURL: "https://smart-irrigation-5fc1d-default-rtdb.firebaseio.com",
+  projectId: "smart-irrigation-5fc1d",
+  storageBucket: "smart-irrigation-5fc1d.firebasestorage.app",
+  messagingSenderId: "896182267295",
+  appId: "1:896182267295:web:ef4b0c9766e88e12eee1aa"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ==================================
+// 📦 Local Storage utilities
+// ==================================
+function loadLogs() {
+  return JSON.parse(localStorage.getItem("pumpLogs") || "[]");
+}
+
+function saveLogs(logs) {
+  localStorage.setItem("pumpLogs", JSON.stringify(logs));
+}
+
+// ==================================
+// 🔥 Fetch Firebase Data
+// ==================================
+async function fetchFirebaseLogs() {
+  const logsRef = ref(db, "logs");
+
+  try {
+    const snapshot = await get(logsRef);
+
+    if (!snapshot.exists()) {
+      console.log("⚠️ No logs found in Firebase.");
+      return;
+    }
+
+    const firebaseLogs = snapshot.val();
+    const localLogs = loadLogs();
+    const newLogs = [];
+
+    Object.entries(firebaseLogs).forEach(([key, data]) => {
+      newLogs.push({
+        zone: data.zone,
+        start: data.start,
+        end: data.end,
+        duration: data.duration
+      });
+    });
+
+    localLogs.push(...newLogs);
+    saveLogs(localLogs);
+
+    console.log(`🔥 Synced ${newLogs.length} logs from Firebase.`);
+    renderLogs();
+
+  } catch (err) {
+    console.error("❌ Firebase fetch failed:", err);
+  }
+}
+
+
+// ==================================
+// 📜 UI — Render cards
+// ==================================
+function renderLogs() {
+  const container = document.getElementById("logsContainer");
+  const logs = loadLogs();
+
+  if (!logs.length) {
+    container.innerHTML = `<p class="text-center text-muted">No pump history yet.</p>`;
+    return;
+  }
+
+  container.innerHTML = "";
+
+  logs.forEach((log) => {
+    const start = new Date(log.start).toLocaleString();
+    const end = new Date(log.end).toLocaleString();
+
+    const card = document.createElement("div");
+    card.className = "log-card";
+    card.innerHTML = `
+      <div class="log-title">${log.zone}</div>
+      <div class="log-details">
+        ${start} → ${end}<br>
+        Duration: <b>${log.duration} min</b>
+      </div>
+    `;
+
+    card.onclick = () => openDetails(log);
+    container.appendChild(card);
+  });
+}
+
+
+// ==================================
+// 📖 Modal Details
+// ==================================
+function openDetails(log) {
+  const modalBody = document.getElementById("viewLogBody");
+  modalBody.innerHTML = `
+    <b>Zone:</b> ${log.zone}<br>
+    <b>Start:</b> ${new Date(log.start).toLocaleString()}<br>
+    <b>End:</b> ${new Date(log.end).toLocaleString()}<br>
+    <b>Duration:</b> ${log.duration} minutes
+  `;
+  new bootstrap.Modal(document.getElementById("viewLogModal")).show();
+}
+
+
+// ==================================
+// 🚀 Start
+// ==================================
+fetchFirebaseLogs();
+
+  </script>
+
+
+</body>
+</html>
