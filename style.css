@@ -1,7 +1,3 @@
-/* =======================================
-   1. GLOBAL BASE STYLES
-   ======================================= */
-
 :root {
   --primary: #0d6efd;
   --danger: #ff5555;
@@ -24,10 +20,6 @@ body {
   justify-content: flex-start;
   font-family: system-ui, sans-serif;
 }
-
-/* =======================================
-   2. NAVIGATION BUTTONS
-   ======================================= */
 
 nav {
   display: flex;
@@ -59,10 +51,6 @@ nav {
   box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.3);
 }
 
-/* =======================================
-   3. DASHBOARD CARDS
-   ======================================= */
-
 .dashboard-card {
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
@@ -82,10 +70,6 @@ nav {
   letter-spacing: 1px;
 }
 
-/* =======================================
-   4. BUTTONS (GLOBAL)
-   ======================================= */
-
 .btn-primary {
   background-color: var(--primary);
   border: none;
@@ -101,10 +85,6 @@ nav {
   background-color: var(--danger);
   color: #fff;
 }
-
-/* =======================================
-   5. FORMS & MODALS
-   ======================================= */
 
 .form-control {
   border-radius: 8px;
@@ -123,10 +103,6 @@ nav {
 .modal-body .form-control::placeholder {
   color: var(--text-muted);
 }
-
-/* =======================================
-   6. RESPONSIVE & MOBILE TWEAKS
-   ======================================= */
 
 @media (max-width: 992px) {
   .row.g-3 {
@@ -174,10 +150,6 @@ nav {
   }
 }
 
-/* =======================================
-   7. UTILITY & MISC
-   ======================================= */
-
 #zonesContainer .card-title {
   display: block;
   max-width: 100%;
@@ -201,14 +173,11 @@ footer {
   padding: 1rem 0;
   font-size: 0.9rem;
 }
-/* =======================================
-   8. LOG CARDS (Dark Theme)
-   ======================================= */
 
 .log-card {
   position: relative;
   padding: 1.25rem 1.5rem;
-  padding-right: 2.25rem; /* space for delete button */
+  padding-right: 2.25rem; 
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background: var(--bg-card);
@@ -235,7 +204,6 @@ footer {
   opacity: 0.9;
 }
 
-/* small delete button (top-right of card) */
 .log-delete-btn {
   position: absolute;
   top: 0.5rem;
@@ -255,10 +223,6 @@ footer {
   color: #fff;
 }
 
-/* =======================================
-   9. HOME BUTTON (Reused Styles)
-   ======================================= */
-
 .home-fixed {
   position: static;
   display: inline-block;
@@ -271,7 +235,6 @@ footer {
   margin-right: 0.5rem;
 }
 
-/* Small screens: pin the home button to top-left */
 @media (max-width: 720px) {
   .home-fixed {
     position: fixed;
@@ -302,9 +265,6 @@ footer {
     display: inline-block;
   }
 }
-/* ===============================
-   Center Home Page Layout
-   =============================== */
 
 body.homepage {
   display: flex;
@@ -355,11 +315,6 @@ body.homepage {
   margin-bottom: 1.75rem;
 }
 
-
-/* =======================================
-   DASHBOARD CARD IMPROVEMENTS
-======================================= */
-
 .irrigation-card {
   padding: 0.85rem 0.9rem;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -370,7 +325,6 @@ body.homepage {
   box-shadow: 0 6px 30px rgba(13, 110, 253, 0.25);
 }
 
-/* top bar layout */
 .card-header-inline {
   display: flex;
   justify-content: space-between;
@@ -378,7 +332,6 @@ body.homepage {
   margin-bottom: 0.65rem;
 }
 
-/* bring out the card title */
 .irrigation-card .card-title {
   margin: 0;
   font-size: 1.05rem;
@@ -386,13 +339,11 @@ body.homepage {
   color: var(--primary);
 }
 
-/* better switch alignment */
 .card-header-inline .form-check-input {
   width: 2em;
   height: 1.2em;
 }
 
-/* key-value layout */
 .card-meta {
   margin-top: 0.75rem;
 }
@@ -413,15 +364,12 @@ body.homepage {
   color: var(--text-light);
 }
 
-/* subtle visual tone */
 .irrigation-card .card-body {
   background: linear-gradient(155deg, #1f1f1f 0%, #242424 100%);
   border-radius: var(--radius-card);
   padding: 1rem;
 }
-/* =================================================
-   PUMP STATUS INDICATOR
-===================================================*/
+
 .pump-card {
   padding: 0.8rem !important;
 }
@@ -438,7 +386,6 @@ body.homepage {
   transition: all .25s ease;
 }
 
-/* OFF (default) */
 .pump-off {
   color: #e85d5d;
   background: rgba(255, 0, 0, 0.08);
@@ -446,7 +393,6 @@ body.homepage {
   box-shadow: 0 0 8px rgba(255, 0, 0, .25);
 }
 
-/* ON state */
 .pump-on {
   color: #33ff88;
   background: rgba(0,255,150,.08);
@@ -463,7 +409,7 @@ body.homepage {
   outline: none;
   padding: 0;
   color: #ffffff;
-  background: #dc3545; /* bootstrap red */
+  background: #dc3545; 
   border-radius: 50%;
   font-size: 14px;
   line-height: 22px;
@@ -474,3 +420,4 @@ body.homepage {
 .zone-delete-btn:hover {
   background: #b81f2c; 
 }
+
