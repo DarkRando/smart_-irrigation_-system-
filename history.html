@@ -14,7 +14,6 @@
   <main class="container my-4">
     <h2 class="text-center mb-4 dashboard-header">Pump Activity History</h2>
 
-    <!-- Back Button -->
     <div class="text-center mb-4 home-fixed">
       <a href="index.html">
         <button class="nav-btn">
@@ -30,11 +29,10 @@
       </a>
     </div>
 
-    <!-- Logs -->
+
     <div id="logsContainer" class="mb-5"></div>
   </main>
 
-  <!-- View Details Modal -->
   <div class="modal fade" id="viewLogModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -52,9 +50,6 @@
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 
-// ==================================
-// 🚀 Firebase Config
-// ==================================
 const firebaseConfig = {
   apiKey: "AIzaSyCuumVzK4ppOldG-jVcW936QpLTNgXbzfY",
   authDomain: "smart-irrigation-5fc1d.firebaseapp.com",
@@ -68,9 +63,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ==================================
-// 📦 Local Storage utilities
-// ==================================
 function loadLogs() {
   return JSON.parse(localStorage.getItem("pumpLogs") || "[]");
 }
@@ -78,10 +70,6 @@ function loadLogs() {
 function saveLogs(logs) {
   localStorage.setItem("pumpLogs", JSON.stringify(logs));
 }
-
-// ==================================
-// 🔥 Fetch Firebase Data
-// ==================================
 async function fetchFirebaseLogs() {
   const logsRef = ref(db, "logs");
 
@@ -100,7 +88,6 @@ async function fetchFirebaseLogs() {
     Object.entries(firebaseLogs).forEach(([key, data]) => {
       newLogs.push({
         zone: data.zone,
-        start: data.start,
         end: data.end,
         duration: data.duration
       });
@@ -117,10 +104,6 @@ async function fetchFirebaseLogs() {
   }
 }
 
-
-// ==================================
-// 📜 UI — Render cards
-// ==================================
 function renderLogs() {
   const container = document.getElementById("logsContainer");
   const logs = loadLogs();
@@ -151,10 +134,6 @@ function renderLogs() {
   });
 }
 
-
-// ==================================
-// 📖 Modal Details
-// ==================================
 function openDetails(log) {
   const modalBody = document.getElementById("viewLogBody");
   modalBody.innerHTML = `
@@ -166,10 +145,6 @@ function openDetails(log) {
   new bootstrap.Modal(document.getElementById("viewLogModal")).show();
 }
 
-
-// ==================================
-// 🚀 Start
-// ==================================
 fetchFirebaseLogs();
 
   </script>
@@ -177,3 +152,4 @@ fetchFirebaseLogs();
 
 </body>
 </html>
+
